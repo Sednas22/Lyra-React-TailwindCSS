@@ -1,0 +1,285 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --green-mid: #2db56e;
+    --green-pale: #f3fbf6;
+    --text-main: #1a2e1f;
+    --text-muted: #6b8f71;
+    --white: #ffffff;
+    --shadow-soft: 0 2px 12px rgba(30, 100, 60, .08);
+    --font: 'Nunito', sans-serif;
+}
+
+body {
+    font-family: var(--font);
+    background: #f0f7f3;
+    color: var(--text-main);
+    min-height: 100dvh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+button,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+.app {
+  width: 100%;
+  min-height: 100dvh;
+  background: var(--green-pale);
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 72px;
+}
+
+.scrollContent {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.appHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 20px 14px;
+    background: #f5faf7;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.appHeader h1 {
+    font-size: 1.35rem;
+    font-weight: 900;
+    color: var(--green-mid);
+    flex: 1;
+    text-align: center;
+}
+
+.btnIcon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-main);
+    width: 32px;
+    height: 32px;
+}
+
+.btnBack {
+    text-decoration: none;
+}
+
+.headerSpacer {
+    width: 32px;
+}
+
+.tipCard {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 22px 20px 24px;
+    margin: 18px 16px 0;
+    box-shadow: var(--shadow-soft);
+}
+
+.tipHeading {
+    font-size: 1rem;
+    font-weight: 900;
+    color: var(--text-main);
+    margin-bottom: 12px;
+}
+
+.tipText {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    line-height: 1.65;
+}
+
+.bottomNav {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    background: var(--white);
+    border-top: 1px solid #eaf0ec;
+    display: flex;
+    z-index: 100;
+    box-shadow: 0 -8px 26px rgba(30, 100, 60, 0.08);
+}
+
+.navItem {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 4px 12px;
+    gap: 3px;
+    text-decoration: none;
+    color: #4b4f52;
+    font-size: 0.72rem;
+    font-weight: 800;
+    background: none;
+    border: none;
+    font-family: var(--font);
+    cursor: pointer;
+}
+
+.navItem svg {
+    width: 24px;
+    height: 24px;
+}
+
+.navItem.active {
+    color: var(--green-mid);
+}
+
+.navItem.active svg {
+    stroke: var(--green-mid);
+}
+
+.desktopSidebar {
+    display: none;
+}
+
+.desktopHeader {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    body {
+        display: flex;
+        min-height: 100vh;
+        background: #eef6f1;
+    }
+
+    .desktopSidebar {
+        display: flex;
+        flex-direction: column;
+        width: 240px;
+        min-height: 100vh;
+        background: #1a7a4a;
+        padding: 32px 20px 24px;
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        z-index: 200;
+        gap: 8px;
+    }
+
+    .sidebarLogo {
+        font-size: 1.5rem;
+        font-weight: 900;
+        color: #fff;
+        letter-spacing: .15em;
+        margin-bottom: 32px;
+        padding: 0 8px;
+    }
+
+    .sidebarNav {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        flex: 1;
+    }
+
+    .sidebarLink {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 11px 14px;
+        border-radius: 12px;
+        text-decoration: none;
+        color: rgba(255, 255, 255, .65);
+        font-size: .92rem;
+        font-weight: 700;
+        transition: background .15s, color .15s;
+    }
+
+    .sidebarLink:hover,
+    .sidebarLink.active {
+        background: rgba(255, 255, 255, .18);
+        color: #fff;
+    }
+
+    .sidebarLink svg {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+    }
+
+    .sidebarBadge {
+        margin-top: auto;
+        background: rgba(255, 255, 255, .12);
+        border-radius: 12px;
+        padding: 12px 14px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #fff;
+        font-size: .85rem;
+        font-weight: 800;
+    }
+
+    .sidebarBadge .dot {
+        width: 10px;
+        height: 10px;
+        background: #2db56e;
+        border-radius: 50%;
+    }
+
+    .app {
+        margin-left: 240px;
+        width: calc(100% - 240px);
+        max-width: none;
+        min-height: 100vh;
+        padding-bottom: 0;
+        background: transparent;
+    }
+
+    .appHeader {
+        display: none;
+    }
+
+    .bottomNav {
+        display: none;
+    }
+
+    .scrollContent {
+        overflow: visible;
+        max-height: none;
+        padding: 0 36px 36px;
+    }
+
+    .desktopHeader {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 28px 36px 20px;
+    }
+
+    .desktopHeader h1 {
+        font-size: 1.9rem;
+        font-weight: 900;
+        color: #1a2e1f;
+    }
+}

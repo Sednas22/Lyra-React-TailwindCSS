@@ -1,0 +1,153 @@
+:root {
+    --bg-green: #1C9770;
+    --sheet-bg: #1e1e26;
+    --text-dim: #a0a0a0;
+    --btn-approve: #8a4fff;
+    --btn-decline: transparent;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Roboto, sans-serif;
+}
+
+.lgpd-screen {
+    background-color: var(--bg-green);
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.logo-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.main-logo {
+    width: 300px;
+    max-width: 80%;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.bottom-sheet {
+    position: absolute;
+    bottom: 0;
+    width: 94%;
+    background-color: #ffffff;
+    border-radius: 24px 24px 0 0;
+    padding: 15px;
+    box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.2);
+    animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    color: #1C9770;
+}
+
+.sheet-indicator {
+    width: 48px;
+    height: 4px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+    margin: 0 auto 24px auto;
+}
+
+.sheet-content h2 {
+    font-size: 1.25rem;
+    margin-bottom: 12px;
+    font-weight: 700;
+}
+
+.sheet-content p {
+    font-size: 0.95rem;
+    color: var(--text-dim);
+    margin-bottom: 32px;
+    line-height: 1.5;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 16px;
+    flex-direction: column;
+}
+
+button {
+    padding: 16px;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s ease;
+    width: 100%;
+}
+
+.btn-approve {
+    background-color: #1C9770;
+    color: white;
+}
+
+.btn-approve:hover {
+    filter: brightness(1.1);
+}
+
+.btn-decline {
+    background-color: var(--btn-decline);
+    color: #1C9770;
+    border: 1px solid #1C9770;
+}
+
+.btn-decline:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@media (min-width: 768px) {
+    .bottom-sheet {
+        max-width: 500px;
+        left: 50%;
+        animation: slideUpDesktop 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    /* .action-buttons {
+        flex-direction: row;
+    } */
+
+    @keyframes slideUpDesktop {
+        from {
+            transform: translateX(-50%) translateY(100%);
+        }
+
+        to {
+            transform: translateX(-50%) translateY(0);
+        }
+    }
+}

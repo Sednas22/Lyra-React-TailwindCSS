@@ -1,0 +1,584 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --greenDark: #1a7a4a;
+    --greenMid: #2db56e;
+    --greenLight: #e8f8ef;
+    --teal: #4dd4ac;
+    --textMain: #1a2e1f;
+    --textMuted: #6b8f71;
+    --textLabel: #888;
+    --white: #ffffff;
+    --radiusCard: 18px;
+    --radiusPill: 999px;
+    --shadowSoft: 0 2px 12px rgba(30, 100, 60, .08);
+    --shadowCard: 0 8px 22px rgba(30, 100, 60, .12);
+    --font: 'Nunito', sans-serif;
+}
+
+body {
+    font-family: var(--font);
+    background: #f0f7f3;
+    color: var(--textMain);
+    min-height: 100dvh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+button,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+.app {
+  width: 100%;
+  min-height: 100dvh;
+  background: var(--greenPale);
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 72px;
+}
+
+.scrollContent {
+    flex: 1;
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+
+.scrollContent::-webkit-scrollbar {
+    display: none;
+}
+
+.appHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 0px 14px;
+    background: #f5faf7;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.appHeader h1 {
+    font-size: 1.35rem;
+    font-weight: 900;
+    color: var(--greenMid);
+    flex: 1;
+    text-align: center;
+}
+
+.btnIcon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--textMain);
+    width: 32px;
+    height: 32px;
+}
+
+.btnBack {
+    text-decoration: none;
+}
+
+.headerSpacer {
+    width: 32px;
+}
+
+.summaryRow {
+    display: flex;
+    gap: 12px;
+    align-items: stretch;
+    padding-top: 16px;
+    padding-bottom: 4px;
+}
+
+.calTotalCard {
+    flex: 1;
+    background: var(--white);
+    border-radius: 18px;
+    padding: 16px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    box-shadow: var(--shadowSoft);
+}
+
+.calTotalLabel {
+    font-size: .82rem;
+    font-weight: 800;
+    color: var(--textMain);
+}
+
+.calTotalSub {
+    font-size: .7rem;
+    font-weight: 600;
+    color: var(--textLabel);
+}
+
+.calTotalValue {
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: var(--textMain);
+    margin-top: 4px;
+}
+
+.cameraCard {
+    flex: 1;
+    background: linear-gradient(135deg, #27b27f, #1a7a4a);
+    border-radius: 18px;
+    padding: 14px 14px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    text-decoration: none;
+    color: var(--white);
+    box-shadow: var(--shadowCard);
+    position: relative;
+    overflow: hidden;
+    transition: transform .15s;
+}
+
+.cameraCard:hover {
+    transform: translateY(-2px);
+}
+
+.cameraCardTop {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cameraLabel {
+    font-size: .88rem;
+    font-weight: 800;
+}
+
+.cameraDesc {
+    font-size: .72rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, .8);
+    line-height: 1.3;
+    flex: 1;
+}
+
+.cameraArrow {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    font-size: 1.4rem;
+    color: rgba(255, 255, 255, .6);
+}
+
+.mealsSection {
+    padding-top: 20px;
+}
+
+.dayHeading {
+    font-size: 1rem;
+    font-weight: 900;
+    color: var(--textMain);
+    margin-bottom: 12px;
+}
+
+.mealsList {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.mealItem {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    box-shadow: var(--shadowSoft);
+}
+
+.mealThumb {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    background: var(--greenLight);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.mealInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.mealName {
+    font-size: .8rem;
+    font-weight: 700;
+    color: var(--textMuted);
+}
+
+.mealCal {
+    font-size: 1.1rem;
+    font-weight: 900;
+    color: var(--teal);
+}
+
+.bottomNav {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    background: var(--white);
+    border-top: 1px solid #eaf0ec;
+    display: flex;
+    z-index: 100;
+    box-shadow: 0 -8px 26px rgba(30, 100, 60, .08);
+}
+
+.navItem {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 4px 15px;
+    gap: 3px;
+    text-decoration: none;
+    color: #7d8286;
+    font-size: .72rem;
+    font-weight: 800;
+    background: none;
+    border: none;
+    font-family: var(--font);
+    cursor: pointer;
+}
+
+.navItem svg {
+    width: 24px;
+    height: 24px;
+}
+
+.navItem.active {
+    color: var(--greenMid);
+}
+
+.navItem.active svg {
+    stroke: var(--greenMid);
+}
+
+.desktopSidebar {
+    display: none;
+}
+
+.desktopHeader {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    body {
+        display: flex;
+        min-height: 100vh;
+        background: #eef6f1;
+    }
+
+    .desktopSidebar {
+        display: flex;
+        flex-direction: column;
+        width: 240px;
+        min-height: 100vh;
+        background: #1a7a4a;
+        padding: 32px 20px 24px;
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        z-index: 200;
+        gap: 8px;
+    }
+
+    .sidebarLogo {
+        font-size: 1.5rem;
+        font-weight: 900;
+        color: #fff;
+        letter-spacing: .15em;
+        margin-bottom: 32px;
+        padding: 0 8px;
+    }
+
+    .sidebarNav {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        flex: 1;
+    }
+
+    .sidebarLink {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 11px 14px;
+        border-radius: 12px;
+        text-decoration: none;
+        color: rgba(255, 255, 255, .65);
+        font-size: .92rem;
+        font-weight: 700;
+        transition: background .15s, color .15s;
+    }
+
+    .sidebarLink:hover,
+    .sidebarLink.active {
+        background: rgba(255, 255, 255, .18);
+        color: #fff;
+    }
+
+    .sidebarLink svg {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+    }
+
+    .sidebarBadge {
+        margin-top: auto;
+        background: rgba(255, 255, 255, .12);
+        border-radius: 12px;
+        padding: 12px 14px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #fff;
+        font-size: .85rem;
+        font-weight: 800;
+    }
+
+    .sidebarBadge .dot {
+        width: 10px;
+        height: 10px;
+        background: #2db56e;
+        border-radius: 50%;
+    }
+
+    .app {
+        margin-left: 240px;
+        width: calc(100% - 240px);
+        max-width: none;
+        min-height: 100vh;
+        padding-bottom: 0;
+        background: transparent;
+        padding: 20px;
+    }
+
+    .appHeader {
+        display: none;
+    }
+
+    .nameBar {
+        display: none;
+    }
+
+    .bottomNav {
+        display: none;
+    }
+
+    .scrollContent {
+        overflow: visible;
+        max-height: none;
+        padding: 0 36px 36px;
+    }
+
+    .desktopHeader {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 28px 36px 20px;
+    }
+
+    .desktopHeader h1 {
+        font-size: 1.9rem;
+        font-weight: 900;
+        color: #1a2e1f;
+    }
+
+    .desktopHeaderRight {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+
+    .desktopUserPill {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: #fff;
+        border-radius: 999px;
+        padding: 8px 16px;
+        box-shadow: 0 2px 12px rgba(30, 100, 60, .08);
+        font-size: .9rem;
+        font-weight: 800;
+        color: #1a2e1f;
+    }
+
+    .desktopUserPill .dot {
+        width: 10px;
+        height: 10px;
+        background: #2db56e;
+        border-radius: 50%;
+    }
+
+    .section {
+        padding: 0;
+        margin-bottom: 24px;
+    }
+
+    .sectionHeader {
+        margin-bottom: 14px;
+    }
+
+    .sectionHeader h2 {
+        font-size: 1.25rem;
+    }
+
+    .banner {
+        margin: 0;
+        border-radius: 18px;
+    }
+
+    .tipsScroll {
+        flex-wrap: wrap;
+        overflow: visible;
+    }
+
+    .tipCard {
+        flex: 0 0 calc(50% - 6px);
+    }
+
+    .tipParagraph {
+        padding: 4px 0 0;
+    }
+
+    .barChart {
+        height: 160px;
+    }
+
+    .chartBox {
+        border-radius: 18px;
+        padding: 24px;
+    }
+
+    .mealsList,
+    .exerciseList {
+        gap: 14px;
+    }
+
+    .mealItem,
+    .exerciseItem {
+        padding: 18px 20px;
+        border-radius: 18px;
+    }
+
+    .mealThumb,
+    .exThumb {
+        width: 54px;
+        height: 54px;
+    }
+
+    .desktopGrid {
+        display: grid;
+        grid-template-columns: 1fr 300px;
+        gap: 24px;
+        align-items: start;
+    }
+
+    .desktopMain {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .desktopAside {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .shopCard {
+        padding: 18px;
+        gap: 18px;
+    }
+
+    .shopCardImage {
+        width: 90px;
+        height: 90px;
+    }
+
+    .summaryCard {
+        padding: 24px;
+        gap: 28px;
+    }
+
+    .statGrid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+
+    .statCard {
+        padding: 20px;
+    }
+
+    .statValue {
+        font-size: 1.7rem;
+    }
+}
+
+@media (min-width: 1100px) {
+    .scrollContent {
+        padding: 0 44px 44px;
+    }
+
+    .desktopHeader {
+        padding: 28px 44px 20px;
+    }
+
+    .desktopGrid {
+        grid-template-columns: 1fr 340px;
+        gap: 28px;
+    }
+
+    .statGrid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .tipCard {
+        flex: 0 0 calc(33.33% - 8px);
+    }
+
+    .barChart {
+        height: 180px;
+    }
+}
+
+@media (max-width: 380px) {
+    .appHeader {
+        padding-inline: 14px;
+    }
+}

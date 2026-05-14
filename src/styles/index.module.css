@@ -1,0 +1,1505 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --greenDark: #1a7a4a;
+  --greenMid: #2db56e;
+  --greenLight: #e8f8ef;
+  --greenPale: #f3fbf6;
+  --teal: #4dd4ac;
+  --blueAccent: #1565c0;
+  --textMain: #1a2e1f;
+  --textMuted: #6b8f71;
+  --textLabel: #888;
+  --white: #ffffff;
+  --radiusCard: 18px;
+  --radiusPill: 999px;
+  --shadowSoft: 0 2px 12px rgba(30, 100, 60, 0.08);
+  --shadowCard: 0 4px 20px rgba(30, 100, 60, 0.1);
+  --sidebarW: 240px;
+  --font: "Nunito", sans-serif;
+}
+
+body {
+  font-family: var(--font);
+  background: var(--greenPale);
+  color: var(--textMain);
+  min-height: 100dvh;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+
+.app {
+  width: 100%;
+  min-height: 100dvh;
+  background: var(--greenPale);
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 72px;
+}
+
+.desktopSidebar {
+  display: none;
+}
+
+.desktopHeader {
+  display: none;
+}
+
+.scrollContent {
+  flex: 1;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+.scrollContent::-webkit-scrollbar {
+  display: none;
+}
+
+.appHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 20px 12px;
+  background: var(--greenPale);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.appHeader h1 {
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: var(--textMain);
+  letter-spacing: -0.5px;
+}
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.badgePoints {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--white);
+  border: 1.5px solid var(--greenMid);
+  border-radius: var(--radiusPill);
+  padding: 4px 10px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--textMain);
+}
+.badgePoints .dot {
+  width: 10px;
+  height: 10px;
+  background: var(--greenMid);
+  border-radius: 50%;
+}
+.btnIcon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--textMain);
+}
+
+.nameBar {
+  margin: 0 16px 16px;
+  background: var(--greenDark);
+  border-radius: var(--radiusPill);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nameBar span {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--white);
+}
+.nameBar svg {
+  color: var(--white);
+  opacity: 0.85;
+}
+
+.section {
+  padding: 0 16px;
+  margin-bottom: 16px;
+}
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.sectionHeader h2 {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--textMain);
+}
+.linkArrow {
+  display: flex;
+  align-items: center;
+  color: var(--greenDark);
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+}
+
+.summaryCard {
+  background: var(--white);
+  border-radius: var(--radiusCard);
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  box-shadow: var(--shadowCard);
+}
+.ringWrap {
+  flex-shrink: 0;
+  position: relative;
+  width: 90px;
+  height: 90px;
+}
+.ringWrap svg {
+  width: 90px;
+  height: 90px;
+  transform: rotate(-90deg);
+}
+.ringWrap circle {
+  fill: none;
+  stroke-width: 8;
+  stroke-linecap: round;
+}
+.ringTrack {
+  stroke: #e0f0e8;
+}
+.ringSleep {
+  stroke: var(--teal);
+  stroke-dasharray: 180 220;
+}
+.ringSteps {
+  stroke: var(--greenMid);
+  stroke-dasharray: 140 220;
+}
+.ringExercise {
+  stroke: var(--greenDark);
+  stroke-dasharray: 100 220;
+}
+.ringCenter {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ringLegend {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.ringLegend li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+.ringLegend li::before {
+  content: "";
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.ringLegend .lSleep::before {
+  background: var(--teal);
+}
+.ringLegend .lSteps::before {
+  background: var(--greenMid);
+}
+.ringLegend .lExercise::before {
+  background: var(--greenDark);
+}
+.ringLegend .lSleep {
+  color: var(--teal);
+}
+.ringLegend .lSteps {
+  color: var(--greenMid);
+}
+.ringLegend .lExercise {
+  color: var(--greenDark);
+}
+
+.statGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.statCard {
+  background: var(--white);
+  border-radius: var(--radiusCard);
+  padding: 14px;
+  box-shadow: var(--shadowSoft);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.statCardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.statCard h3 {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--textMain);
+}
+.statLabel {
+  font-size: 0.72rem;
+  color: var(--textLabel);
+  font-weight: 600;
+}
+.statValue {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--blueAccent);
+  line-height: 1.1;
+}
+.statSub {
+  font-size: 0.8rem;
+  color: var(--textMuted);
+  font-weight: 600;
+}
+.btnPill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: var(--greenDark);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radiusPill);
+  padding: 9px 14px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  font-family: var(--font);
+  cursor: pointer;
+  width: 100%;
+  margin-top: 4px;
+}
+.btnPill.alert {
+  background: var(--greenMid);
+}
+
+.banner {
+  margin: 0 16px 16px;
+  border-radius: var(--radiusCard);
+  overflow: hidden;
+  position: relative;
+  min-height: 160px;
+  background: linear-gradient(135deg, var(--greenDark) 0%, #2db56e 100%);
+  display: flex;
+  align-items: flex-end;
+}
+.bannerContent {
+  position: relative;
+  z-index: 1;
+  padding: 18px;
+  color: var(--white);
+}
+.bannerContent h2 {
+  font-size: 1.15rem;
+  font-weight: 900;
+  line-height: 1.25;
+  margin-bottom: 6px;
+}
+.bannerContent p {
+  font-size: 0.78rem;
+  opacity: 0.85;
+  margin-bottom: 12px;
+}
+.btnOutlineWhite {
+  display: inline-flex;
+  align-items: center;
+  border: 2px solid var(--white);
+  color: var(--white);
+  background: transparent;
+  border-radius: var(--radiusPill);
+  padding: 6px 16px;
+  font-size: 0.82rem;
+  font-weight: 800;
+  font-family: var(--font);
+  cursor: pointer;
+}
+.carouselDots {
+  position: absolute;
+  bottom: 12px;
+  right: 16px;
+  display: flex;
+  gap: 5px;
+  z-index: 2;
+}
+.carouselDots span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.45);
+}
+.carouselDots span.active {
+  background: var(--white);
+}
+
+.tipsScroll {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: none;
+}
+.tipsScroll::-webkit-scrollbar {
+  display: none;
+}
+.tipCard {
+  flex: 0 0 46%;
+  background: var(--greenLight);
+  border-radius: var(--radiusCard);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.tipCard h4 {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: var(--greenDark);
+}
+.tipCard p {
+  font-size: 0.78rem;
+  color: var(--textMuted);
+  line-height: 1.45;
+}
+.tipParagraph {
+  padding: 0 16px 8px;
+  font-size: 0.88rem;
+  color: var(--textMuted);
+  line-height: 1.6;
+}
+
+.shopCardLink {
+  text-decoration: none;
+  display: block;
+}
+.shopCard {
+  background: var(--white);
+  border-radius: var(--radiusCard);
+  overflow: hidden;
+  box-shadow: var(--shadowCard);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px;
+  transition: transform 0.15s;
+}
+.shopCard:hover {
+  transform: translateY(-2px);
+}
+.shopCardImage {
+  width: 80px;
+  height: 80px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--greenLight);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.shopCardImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.shopCardContent h3 {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--textMain);
+  margin-bottom: 6px;
+}
+.shopCardPrice {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--greenDark);
+}
+
+.bottomNav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--white);
+  border-top: 1px solid #e0ede5;
+  display: flex;
+  z-index: 100;
+  box-shadow: 0 -4px 20px rgba(30, 100, 60, 0.08);
+}
+.navItem {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 4px 12px;
+  gap: 3px;
+  text-decoration: none;
+  color: #4b4f52;
+  font-size: 0.72rem;
+  font-weight: 700;
+  border: none;
+  background: none;
+  font-family: var(--font);
+  cursor: pointer;
+}
+.navItem svg {
+  width: 24px;
+  height: 24px;
+}
+.navItem.active {
+  color: var(--greenDark);
+}
+.navItem.active svg {
+  stroke: var(--greenDark);
+}
+
+@media (min-width: 768px) {
+  body {
+    display: flex;
+    min-height: 100vh;
+    background: #eef6f1;
+  }
+  .desktopSidebar {
+    display: flex;
+    flex-direction: column;
+    width: 240px;
+    min-height: 100vh;
+    background: #1a7a4a;
+    padding: 32px 20px 24px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 200;
+    gap: 8px;
+  }
+  .sidebarLogo {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: 0.15em;
+    margin-bottom: 32px;
+    padding: 0 8px;
+  }
+  .sidebarNav {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+  }
+  .sidebarLink {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 14px;
+    border-radius: 12px;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 0.92rem;
+    font-weight: 700;
+    transition: background 0.15s, color 0.15s;
+  }
+  .sidebarLink:hover,
+  .sidebarLink.active {
+    background: rgba(255, 255, 255, 0.18);
+    color: #fff;
+  }
+  .sidebarLink svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+  }
+  .sidebarBadge {
+    margin-top: auto;
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 800;
+  }
+  .sidebarBadge .dot {
+    width: 10px;
+    height: 10px;
+    background: #2db56e;
+    border-radius: 50%;
+  }
+
+  .app {
+    margin-left: 240px;
+    width: calc(100% - 240px);
+    max-width: none;
+    min-height: 100vh;
+    padding-bottom: 0;
+    background: transparent;
+  }
+  .appHeader {
+    display: none;
+  }
+  .nameBar {
+    display: none;
+  }
+  .bottomNav {
+    display: none;
+  }
+
+  .scrollContent {
+    overflow: visible;
+    max-height: none;
+    padding: 0 36px 36px;
+  }
+
+  .desktopHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px 36px 20px;
+  }
+  .desktopHeader h1 {
+    font-size: 1.9rem;
+    font-weight: 900;
+    color: #1a2e1f;
+  }
+  .desktopHeaderRight {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .desktopUserPill {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #fff;
+    border-radius: 999px;
+    padding: 8px 16px;
+    box-shadow: 0 2px 12px rgba(30, 100, 60, 0.08);
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: #1a2e1f;
+  }
+  .desktopUserPill .dot {
+    width: 10px;
+    height: 10px;
+    background: #2db56e;
+    border-radius: 50%;
+  }
+
+  .section {
+    padding: 0;
+    margin-bottom: 24px;
+  }
+  .sectionHeader {
+    margin-bottom: 14px;
+  }
+  .sectionHeader h2 {
+    font-size: 1.25rem;
+  }
+
+  .banner {
+    margin: 0;
+    border-radius: 18px;
+  }
+  .tipsScroll {
+    flex-wrap: wrap;
+    overflow: visible;
+  }
+  .tipCard {
+    flex: 0 0 calc(50% - 6px);
+  }
+  .tipParagraph {
+    padding: 4px 0 0;
+  }
+
+  .barChart {
+    height: 160px;
+  }
+  .chartBox {
+    border-radius: 18px;
+    padding: 24px;
+  }
+
+  .mealsList,
+  .exerciseList {
+    gap: 14px;
+  }
+  .mealItem,
+  .exerciseItem {
+    padding: 18px 20px;
+    border-radius: 18px;
+  }
+  .mealThumb,
+  .exThumb {
+    width: 54px;
+    height: 54px;
+  }
+
+  .desktopGrid {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 24px;
+    align-items: start;
+  }
+  .desktopMain {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .desktopAside {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .shopCard {
+    padding: 18px;
+    gap: 18px;
+  }
+  .shopCardImage {
+    width: 90px;
+    height: 90px;
+  }
+
+  .summaryCard {
+    padding: 24px;
+    gap: 28px;
+  }
+
+  .statGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .statCard {
+    padding: 20px;
+  }
+  .statValue {
+    font-size: 1.7rem;
+  }
+}
+
+@media (min-width: 1100px) {
+  .scrollContent {
+    padding: 0 44px 44px;
+  }
+  .desktopHeader {
+    padding: 28px 44px 20px;
+  }
+  .desktopGrid {
+    grid-template-columns: 1fr 340px;
+    gap: 28px;
+  }
+  .statGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .tipCard {
+    flex: 0 0 calc(33.33% - 8px);
+  }
+  .barChart {
+    height: 180px;
+  }
+}
+
+@media (max-width: 380px) {
+  .appHeader {
+    padding-inline: 14px;
+  }
+}*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --greenDark: #1a7a4a;
+  --greenMid: #2db56e;
+  --greenLight: #e8f8ef;
+  --greenPale: #f3fbf6;
+  --teal: #4dd4ac;
+  --blueAccent: #1565c0;
+  --textMain: #1a2e1f;
+  --textMuted: #6b8f71;
+  --textLabel: #888;
+  --white: #ffffff;
+  --radiusCard: 18px;
+  --radiusPill: 999px;
+  --shadowSoft: 0 2px 12px rgba(30, 100, 60, 0.08);
+  --shadowCard: 0 4px 20px rgba(30, 100, 60, 0.1);
+  --sidebarW: 240px;
+  --font: "Nunito", sans-serif;
+}
+
+body {
+  font-family: var(--font);
+  background: var(--greenPale);
+  color: var(--textMain);
+  min-height: 100dvh;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+
+.app {
+  width: 100%;
+  min-height: 100dvh;
+  background: var(--greenPale);
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 72px;
+}
+
+.desktopSidebar {
+  display: none;
+}
+
+.desktopHeader {
+  display: none;
+}
+
+.scrollContent {
+  flex: 1;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+.scrollContent::-webkit-scrollbar {
+  display: none;
+}
+
+.appHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 20px 12px;
+  background: var(--greenPale);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.appHeader h1 {
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: var(--textMain);
+  letter-spacing: -0.5px;
+}
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.badgePoints {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--white);
+  border: 1.5px solid var(--greenMid);
+  border-radius: var(--radiusPill);
+  padding: 4px 10px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--textMain);
+}
+.badgePoints .dot {
+  width: 10px;
+  height: 10px;
+  background: var(--greenMid);
+  border-radius: 50%;
+}
+.btnIcon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--textMain);
+}
+
+.nameBar {
+  margin: 0 16px 16px;
+  background: var(--greenDark);
+  border-radius: var(--radiusPill);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nameBar span {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--white);
+}
+.nameBar svg {
+  color: var(--white);
+  opacity: 0.85;
+}
+
+.section {
+  padding: 0 16px;
+  margin-bottom: 16px;
+}
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.sectionHeader h2 {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--textMain);
+}
+.linkArrow {
+  display: flex;
+  align-items: center;
+  color: var(--greenDark);
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+}
+
+.summaryCard {
+  background: var(--white);
+  border-radius: var(--radiusCard);
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  box-shadow: var(--shadowCard);
+}
+.ringWrap {
+  flex-shrink: 0;
+  position: relative;
+  width: 90px;
+  height: 90px;
+}
+.ringWrap svg {
+  width: 90px;
+  height: 90px;
+  transform: rotate(-90deg);
+}
+.ringWrap circle {
+  fill: none;
+  stroke-width: 8;
+  stroke-linecap: round;
+}
+.ringTrack {
+  stroke: #e0f0e8;
+}
+.ringSleep {
+  stroke: var(--teal);
+  stroke-dasharray: 180 220;
+}
+.ringSteps {
+  stroke: var(--greenMid);
+  stroke-dasharray: 140 220;
+}
+.ringExercise {
+  stroke: var(--greenDark);
+  stroke-dasharray: 100 220;
+}
+.ringCenter {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ringLegend {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.ringLegend li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+.ringLegend li::before {
+  content: "";
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.ringLegend .lSleep::before {
+  background: var(--teal);
+}
+.ringLegend .lSteps::before {
+  background: var(--greenMid);
+}
+.ringLegend .lExercise::before {
+  background: var(--greenDark);
+}
+.ringLegend .lSleep {
+  color: var(--teal);
+}
+.ringLegend .lSteps {
+  color: var(--greenMid);
+}
+.ringLegend .lExercise {
+  color: var(--greenDark);
+}
+
+.statGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.statCard {
+  background: var(--white);
+  border-radius: var(--radiusCard);
+  padding: 14px;
+  box-shadow: var(--shadowSoft);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.statCardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.statCard h3 {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--textMain);
+}
+.statLabel {
+  font-size: 0.72rem;
+  color: var(--textLabel);
+  font-weight: 600;
+}
+.statValue {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--blueAccent);
+  line-height: 1.1;
+}
+.statSub {
+  font-size: 0.8rem;
+  color: var(--textMuted);
+  font-weight: 600;
+}
+.btnPill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: var(--greenDark);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radiusPill);
+  padding: 9px 14px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  font-family: var(--font);
+  cursor: pointer;
+  width: 100%;
+  margin-top: 4px;
+}
+.btnPill.alert {
+  background: var(--greenMid);
+}
+
+.banner {
+  margin: 0 16px 16px;
+  border-radius: var(--radiusCard);
+  overflow: hidden;
+  position: relative;
+  min-height: 160px;
+  background: linear-gradient(135deg, var(--greenDark) 0%, #2db56e 100%);
+  display: flex;
+  align-items: flex-end;
+}
+.bannerContent {
+  position: relative;
+  z-index: 1;
+  padding: 18px;
+  color: var(--white);
+}
+.bannerContent h2 {
+  font-size: 1.15rem;
+  font-weight: 900;
+  line-height: 1.25;
+  margin-bottom: 6px;
+}
+.bannerContent p {
+  font-size: 0.78rem;
+  opacity: 0.85;
+  margin-bottom: 12px;
+}
+.btnOutlineWhite {
+  display: inline-flex;
+  align-items: center;
+  border: 2px solid var(--white);
+  color: var(--white);
+  background: transparent;
+  border-radius: var(--radiusPill);
+  padding: 6px 16px;
+  font-size: 0.82rem;
+  font-weight: 800;
+  font-family: var(--font);
+  cursor: pointer;
+}
+.carouselDots {
+  position: absolute;
+  bottom: 12px;
+  right: 16px;
+  display: flex;
+  gap: 5px;
+  z-index: 2;
+}
+.carouselDots span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.45);
+}
+.carouselDots span.active {
+  background: var(--white);
+}
+
+.tipsScroll {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: none;
+}
+.tipsScroll::-webkit-scrollbar {
+  display: none;
+}
+.tipCard {
+  flex: 0 0 46%;
+  background: var(--greenLight);
+  border-radius: var(--radiusCard);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.tipCard h4 {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: var(--greenDark);
+}
+.tipCard p {
+  font-size: 0.78rem;
+  color: var(--textMuted);
+  line-height: 1.45;
+}
+.tipParagraph {
+  padding: 0 16px 8px;
+  font-size: 0.88rem;
+  color: var(--textMuted);
+  line-height: 1.6;
+}
+
+.shopCardLink {
+  text-decoration: none;
+  display: block;
+}
+.shopCard {
+  background: var(--white);
+  border-radius: var(--radiusCard);
+  overflow: hidden;
+  box-shadow: var(--shadowCard);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px;
+  transition: transform 0.15s;
+}
+.shopCard:hover {
+  transform: translateY(-2px);
+}
+.shopCardImage {
+  width: 80px;
+  height: 80px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--greenLight);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.shopCardImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.shopCardContent h3 {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--textMain);
+  margin-bottom: 6px;
+}
+.shopCardPrice {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--greenDark);
+}
+
+.bottomNav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--white);
+  border-top: 1px solid #e0ede5;
+  display: flex;
+  z-index: 100;
+  box-shadow: 0 -4px 20px rgba(30, 100, 60, 0.08);
+}
+.navItem {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 4px 12px;
+  gap: 3px;
+  text-decoration: none;
+  color: #4b4f52;
+  font-size: 0.72rem;
+  font-weight: 700;
+  border: none;
+  background: none;
+  font-family: var(--font);
+  cursor: pointer;
+}
+.navItem svg {
+  width: 24px;
+  height: 24px;
+}
+.navItem.active {
+  color: var(--greenDark);
+}
+.navItem.active svg {
+  stroke: var(--greenDark);
+}
+
+@media (min-width: 768px) {
+  body {
+    display: flex;
+    min-height: 100vh;
+    background: #eef6f1;
+  }
+  .desktopSidebar {
+    display: flex;
+    flex-direction: column;
+    width: 240px;
+    min-height: 100vh;
+    background: #1a7a4a;
+    padding: 32px 20px 24px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 200;
+    gap: 8px;
+  }
+  .sidebarLogo {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: 0.15em;
+    margin-bottom: 32px;
+    padding: 0 8px;
+  }
+  .sidebarNav {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+  }
+  .sidebarLink {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 14px;
+    border-radius: 12px;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 0.92rem;
+    font-weight: 700;
+    transition: background 0.15s, color 0.15s;
+  }
+  .sidebarLink:hover,
+  .sidebarLink.active {
+    background: rgba(255, 255, 255, 0.18);
+    color: #fff;
+  }
+  .sidebarLink svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+  }
+  .sidebarBadge {
+    margin-top: auto;
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 800;
+  }
+  .sidebarBadge .dot {
+    width: 10px;
+    height: 10px;
+    background: #2db56e;
+    border-radius: 50%;
+  }
+
+  .app {
+    margin-left: 240px;
+    width: calc(100% - 240px);
+    max-width: none;
+    min-height: 100vh;
+    padding-bottom: 0;
+    background: transparent;
+  }
+  .appHeader {
+    display: none;
+  }
+  .nameBar {
+    display: none;
+  }
+  .bottomNav {
+    display: none;
+  }
+
+  .scrollContent {
+    overflow: visible;
+    max-height: none;
+    padding: 0 36px 36px;
+  }
+
+  .desktopHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px 36px 20px;
+  }
+  .desktopHeader h1 {
+    font-size: 1.9rem;
+    font-weight: 900;
+    color: #1a2e1f;
+  }
+  .desktopHeaderRight {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .desktopUserPill {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #fff;
+    border-radius: 999px;
+    padding: 8px 16px;
+    box-shadow: 0 2px 12px rgba(30, 100, 60, 0.08);
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: #1a2e1f;
+  }
+  .desktopUserPill .dot {
+    width: 10px;
+    height: 10px;
+    background: #2db56e;
+    border-radius: 50%;
+  }
+
+  .section {
+    padding: 0;
+    margin-bottom: 24px;
+  }
+  .sectionHeader {
+    margin-bottom: 14px;
+  }
+  .sectionHeader h2 {
+    font-size: 1.25rem;
+  }
+
+  .banner {
+    margin: 0;
+    border-radius: 18px;
+  }
+  .tipsScroll {
+    flex-wrap: wrap;
+    overflow: visible;
+  }
+  .tipCard {
+    flex: 0 0 calc(50% - 6px);
+  }
+  .tipParagraph {
+    padding: 4px 0 0;
+  }
+
+  .barChart {
+    height: 160px;
+  }
+  .chartBox {
+    border-radius: 18px;
+    padding: 24px;
+  }
+
+  .mealsList,
+  .exerciseList {
+    gap: 14px;
+  }
+  .mealItem,
+  .exerciseItem {
+    padding: 18px 20px;
+    border-radius: 18px;
+  }
+  .mealThumb,
+  .exThumb {
+    width: 54px;
+    height: 54px;
+  }
+
+  .desktopGrid {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 24px;
+    align-items: start;
+  }
+  .desktopMain {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .desktopAside {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .shopCard {
+    padding: 18px;
+    gap: 18px;
+  }
+  .shopCardImage {
+    width: 90px;
+    height: 90px;
+  }
+
+  .summaryCard {
+    padding: 24px;
+    gap: 28px;
+  }
+
+  .statGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .statCard {
+    padding: 20px;
+  }
+  .statValue {
+    font-size: 1.7rem;
+  }
+}
+
+@media (min-width: 1100px) {
+  .scrollContent {
+    padding: 0 44px 44px;
+  }
+  .desktopHeader {
+    padding: 28px 44px 20px;
+  }
+  .desktopGrid {
+    grid-template-columns: 1fr 340px;
+    gap: 28px;
+  }
+  .statGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .tipCard {
+    flex: 0 0 calc(33.33% - 8px);
+  }
+  .barChart {
+    height: 180px;
+  }
+}
+
+@media (max-width: 380px) {
+  .appHeader {
+    padding-inline: 14px;
+  }
+}

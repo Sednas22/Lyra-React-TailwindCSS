@@ -1,0 +1,471 @@
+:root {
+  --green-dark: #1a7a4a;
+  --green-mid: #2db56e;
+  --green-light: #e8f8ef;
+  --green-pale: #f3fbf6;
+  --text-main: #1a2e1f;
+  --text-muted: #6b8f71;
+  --white: #ffffff;
+  --radius-pill: 999px;
+  --shadow-soft: 0 2px 12px rgba(30, 100, 60, 0.08);
+  --shadow-card: 0 8px 22px rgba(30, 100, 60, 0.12);
+}
+
+.subHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border-bottom: 1px solid #eaf3ee;
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btnBack {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--green-light);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.badgePoints {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #f8fff9;
+  border: 1px solid #cbe9d8;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  font-weight: 800;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background: var(--green-mid);
+  border-radius: 50%;
+}
+
+.wardrobeDesktopGrid {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 32px;
+  padding: 24px;
+}
+
+.wardrobeAvatarCol {
+  background: var(--white);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.wardrobeItemsCol {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* AVATAR */
+.avatarPreviewWrap img {
+  width: 100%;
+}
+
+.avatarShadowSm {
+  width: 70%;
+  height: 40px;
+  background: radial-gradient(circle, rgba(67, 201, 143, 0.8), transparent);
+  border-radius: 50%;
+}
+
+.equippedBadge {
+  margin-top: 10px;
+  background: var(--green-dark);
+  color: white;
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+  font-size: 0.8rem;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.itemsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.itemCard {
+  background: white;
+  border-radius: 16px;
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  border: 2px solid transparent;
+  transition: 0.2s;
+}
+
+.itemCard:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card);
+}
+
+.equipped {
+  border-color: var(--green-mid);
+}
+
+.locked {
+  opacity: 0.5;
+}
+
+.itemImg {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f3fbf6;
+}
+
+.itemFooter {
+  padding: 8px;
+}
+
+.itemName {
+  font-weight: 800;
+  font-size: 0.75rem;
+}
+
+.itemPrice {
+  font-size: 0.7rem;
+  color: var(--green-dark);
+}
+
+.itemPriceOwned {
+  color: var(--green-mid);
+}
+
+.checkBadge,
+.lockBadge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.checkBadge {
+  background: var(--green-mid);
+}
+
+.lockBadge {
+  background: #ccc;
+}
+
+.tagsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.tagCard {
+  background: white;
+  padding: 12px;
+  border-radius: 16px;
+  display: flex;
+  gap: 10px;
+  border: 2px solid transparent;
+}
+
+.tagImg {
+  width: 50px;
+}
+
+.tagName {
+  font-weight: 800;
+}
+
+.tagRarity {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.personasGrid{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.personaCard {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.personaImg {
+  aspect-ratio: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.personaBody {
+  padding: 10px;
+}
+
+.personaName {
+  font-weight: 900;
+}
+
+.personaDesc {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.btnEquip {
+  width: 100%;
+  margin-top: 6px;
+  padding: 8px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--green-dark);
+  color: white;
+  cursor: pointer;
+}
+
+.lockedBtn {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.tagEquipped {
+  border-color: var(--green-mid);
+  box-shadow: 0 0 0 3px rgba(45, 181, 110, 0.15);
+}
+
+.tagLocked {
+  opacity: 0.5;
+}
+
+.tagRarityRare {
+  color: #3b82f6;
+}
+.tagRarityEpic {
+  color: #8b5cf6;
+}
+.tagRarityLegendary {
+  color: #f59e0b;
+}
+
+.tagPrice {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #8b5cf6;
+  margin-top: 6px;
+}
+
+.btnEquip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 6px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--green-dark);
+  color: white;
+  font-size: 0.78rem;
+  font-weight: 800;
+  font-family: "Nunito", sans-serif;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+
+.btnEquip:hover {
+  background: #155e3a;
+}
+
+.btnEquipEquipped {
+  background: var(--green-light);
+  color: var(--green-dark);
+  cursor: default;
+}
+
+.btnEquipEquipped:hover {
+  background: var(--green-light);
+}
+
+.btnEquipLink {
+  display: block;
+  text-align: center;
+}
+
+.btnEquipFull {
+  padding: 13px;
+  border-radius: var(--radius-pill);
+  text-align: center;
+  display: block;
+}
+
+.wardrobeHero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 16px 8px;
+  gap: 0;
+}
+
+.subSection {
+  padding: 20px 16px 0;
+}
+
+.subSectionTitle {
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+}
+
+.equippedTagInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.equippedTagLabel {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.equippedTagImg {
+  width: 64px;
+  height: auto;
+  object-fit: contain;
+}
+
+.equippedTagName {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--green-dark);
+}
+
+.wardrobeSubNav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  margin-top: 12px;
+}
+
+.wardrobeSubLink {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: var(--green-pale);
+  color: var(--text-muted);
+  font-weight: 800;
+  font-size: 0.85rem;
+  border: none;
+  cursor: pointer;
+  font-family: "Nunito", sans-serif;
+  text-align: left;
+  transition: background 0.15s, color 0.15s;
+}
+
+.wardrobeSubLinkActive {
+  background: var(--green-light);
+  color: var(--green-dark);
+}
+
+.wardrobeSubLink:hover:not(.wardrobeSubLinkActive) {
+  background: #e4f5ec;
+  color: var(--text-main);
+}
+
+@media (max-width: 767px) {
+  .wardrobeDesktopGrid {
+    display: block;
+    padding: 0;
+  }
+
+  .wardrobeAvatarCol {
+    display: none; 
+  }
+
+  .wardrobeHero {
+    display: flex; 
+  }
+}
+
+@media (min-width: 768px) {
+  .wardrobeDesktopGrid {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 32px;
+    padding: 0 36px 48px;
+  }
+
+  .wardrobeAvatarCol {
+    display: flex; 
+    position: sticky;
+    top: 24px;
+  }
+
+  .wardrobeHero {
+    display: none; 
+  }
+
+  .subSection {
+    padding: 0;
+  }
+
+  .tagsGrid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+}
+
+@media (min-width: 1100px) {
+  .wardrobeDesktopGrid {
+    grid-template-columns: 300px 1fr;
+    gap: 36px;
+    padding: 0 44px 48px;
+  }
+
+  .tagsGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 380px) {
+  .tagsGrid {
+    grid-template-columns: 1fr;
+  }
+}

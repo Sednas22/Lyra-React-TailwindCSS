@@ -1,0 +1,127 @@
+.vestiarioHeroSection {
+  padding-top: 8px;
+  margin-bottom: 24px;
+}
+
+.vestiarioAvatarStage {
+  min-height: 340px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.avatarFigure {
+  width: min(86%, 320px);
+  position: relative;
+  z-index: 2;
+}
+
+.avatarCharacter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.avatarCharacter img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 18px rgba(27, 79, 51, .18));
+}
+
+.avatarShadow {
+  width: 82%;
+  max-width: 300px;
+  height: 58px;
+  margin-top: -18px;
+  border-radius: 50%;
+  background: radial-gradient(circle at center, rgba(67,201,143,.95), transparent);
+}
+
+/* GRID */
+
+.wardrobeSection {}
+
+.wardrobeGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.wardrobeCard {
+  min-height: 98px;
+  border-radius: 28px;
+  background: white;
+  box-shadow: 0 8px 22px rgba(30, 100, 60, .06);
+}
+
+.wardrobeCardGreen {
+  border: 1.5px solid rgba(26, 122, 74, .55);
+}
+
+.wardrobeCardLime {
+  border: 1.5px solid rgba(157, 216, 77, .65);
+}
+
+/* LINK */
+
+.wardrobeLink {
+  width: 100%;
+  height: 100%;
+  padding: 14px;
+
+  display: grid; /* ESSENCIAL */
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 10px;
+
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+/* ICON */
+
+.wardrobeIcon {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wardrobeIcon svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* CONTENT */
+
+.wardrobeContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.wardrobeContent h3 {
+  font-size: 1.05rem;
+  font-weight: 900;
+}
+
+/* ARROW */
+
+.wardrobeArrow {
+  font-size: 1.4rem;
+  font-weight: 900;
+}
+
+/* COLORS */
+
+.wardrobeCardGreen .wardrobeLink {
+  color: #1a7a4a;
+}
+
+.wardrobeCardLime .wardrobeLink {
+  color: #8cad46;
+}
