@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom";
+import { useApp } from "../context/AppContext";
 import styles from "../styles/index.module.css";
 import "../styles/home.css";
 import logo from "../assets/LOGO-VETORIZADA.png"
 
 function Home() {
+  const { userName } = useApp();
+  const displayName = userName || "Você";
   return (
     <>
       <div className="landing-wrapper">
@@ -60,7 +63,7 @@ function Home() {
                 <span className="preview-title">Resumo</span>
                 <span className="preview-badge">208 ●</span>
               </div>
-              <div className="preview-namebar">Nome</div>
+              <div className="preview-namebar">{displayName}</div>
               <div className="preview-cards">
                 <div className="preview-card"><span>🥗</span><strong>1245 kcal</strong></div>
                 <div className="preview-card"><span>🌙</span><strong>5h sono</strong></div>

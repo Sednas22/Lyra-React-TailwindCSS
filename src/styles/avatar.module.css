@@ -174,52 +174,41 @@ a {
 
 .avatarStage {
     position: relative;
-    min-height: 390px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-end;
-    padding-top: 24px;
+    gap: 0;
+    padding-top: 8px;
 }
 
 .speechBubble {
-    position: absolute;
-    top: 16px;
-    max-width: 120px;
+    position: relative;
+    max-width: 240px;
+    width: fit-content;
     background: #f4fbf0;
-    color: #6a9e79;
-    padding: 12px 14px;
+    color: #4a7a5a;
+    padding: 10px 16px;
     border-radius: 18px;
-    font-size: .92rem;
-    line-height: 1.2;
-    box-shadow: 0 6px 20px rgba(152, 208, 140, .18);
+    font-size: .88rem;
+    font-weight: 500;
+    line-height: 1.35;
+    text-align: center;
+    box-shadow: 0 4px 16px rgba(152, 208, 140, .22);
+    margin-bottom: 6px;
+    z-index: 3;
 }
 
 .speechBubble::after {
     content: '';
     position: absolute;
-    width: 16px;
-    height: 16px;
+    width: 14px;
+    height: 14px;
     background: #f4fbf0;
-    bottom: -4px;
-    border-radius: 4px;
-    transform: rotate(45deg);
-}
-
-.speechBubbleLeft {
-    left: 8px;
-}
-
-.speechBubbleLeft::after {
-    left: 22px;
-}
-
-.speechBubbleRight {
-    right: 8px;
-}
-
-.speechBubbleRight::after {
-    right: 22px;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    border-radius: 3px;
+    z-index: -1;
 }
 
 .avatarFigure {
@@ -877,7 +866,7 @@ a {
 .modalHeader h2 {
   font-size: 1.15rem;
   font-weight: 900;
-  color: var(--textMain);
+  color: #000;
 }
 
 .modalClose {
@@ -885,7 +874,7 @@ a {
   border: none;
   font-size: 1.1rem;
   cursor: pointer;
-  color: var(--textMuted);
+  color: #000;
   padding: 4px 8px;
   max-width: fit-content;
   border-radius: 8px;

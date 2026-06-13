@@ -1,110 +1,112 @@
 import { createContext, useContext, useState, useCallback } from "react";
 
-const LS_POINTS   = "lyrium_points";
-const LS_ITEMS    = "lyrium_items"; 
-const LS_CHESTS   = "lyrium_chests";  
-const LS_GOALS    = "lyrium_goals"; 
+const LS_POINTS    = "lyrium_points";
+const LS_ITEMS     = "lyrium_items";
+const LS_CHESTS    = "lyrium_chests";   
+const LS_SHOP_BAU  = "lyrium_shop_bau"; 
+const LS_GOALS     = "lyrium_goals";
+const LS_STREAK    = "lyrium_streak";
+const LS_LAST_BUY  = "lyrium_last_buy";
 
 function load(key, fallback) {
-  try {
-    const raw = localStorage.getItem(key);
-    return raw !== null ? JSON.parse(raw) : fallback;
-  } catch {
-    return fallback;
-  }
+  try { const r = localStorage.getItem(key); return r !== null ? JSON.parse(r) : fallback; }
+  catch { return fallback; }
 }
 function save(key, value) {
   try { localStorage.setItem(key, JSON.stringify(value)); } catch {}
 }
+function todayStr() { return new Date().toISOString().slice(0, 10); }
 
-const BAU_PRIZE = {
-  image: null, 
-  name: "Faixa Roxa",
-  description: "Exclusiva do Baú! Equipe no seu avatar.",
-};
 
+const SHOP_BAU_PRIZES = ["bau_faixaroxa", "skin_gaucho", "skin_militar"];
 const BAU_PRICE = 400;
+
+const CHESTS_CONFIG = [
+  { id: "avatar_bau_1", prizePoints: 100, label: "Baú 1" },
+  { id: "avatar_bau_2", prizePoints: 150, label: "Baú 2" },
+  { id: "avatar_bau_3", prizePoints: 200, label: "Baú 3" },
+  { id: "avatar_bau_4", prizePoints:  75, label: "Baú 4" },
+];
 
 const LyriumContext = createContext(null);
 
 export function LyriumProvider({ children }) {
-  const [points,    setPointsState]  = useState(() => load(LS_POINTS,  0));
-  const [boughtItems, setBoughtItems] = useState(() => load(LS_ITEMS,  {}));
-  const [claimedChests, setClaimedChests] = useState(() => load(LS_CHESTS, {}));
-  const [claimedGoals, setClaimedGoals]   = useState(() => load(LS_GOALS,  {}));
+  const [points,        setPointsState]   = useState(() => load(LS_POINTS,   0));
+  const [boughtItems,   setBoughtItems]   = useState(() => load(LS_ITEMS,    {}));
+  const [claimedChests, setClaimedChests] = useState(() => load(LS_CHESTS,   {}));
+  const [shopBau,       setShopBau]       = useState(() => load(LS_SHOP_BAU, null));
+  const [claimedGoals,  setClaimedGoals]  = useState(() => load(LS_GOALS,    {}));
+  const [streak,        setStreakState]   = useState(() => load(LS_STREAK,   0));
+  const [lastBuyTs,     setLastBuyTs]    = useState(() => load(LS_LAST_BUY,  null));
 
+  
   const addPoints = useCallback((amount) => {
-    setPointsState(prev => {
-      const next = prev + amount;
-      save(LS_POINTS, next);
-      return next;
-    });
+    setPointsState(prev => { const n = Math.round(prev + amount); save(LS_POINTS, n); return n; });
   }, []);
-
   const spendPoints = useCallback((amount) => {
-    setPointsState(prev => {
-      const next = prev - amount;
-      save(LS_POINTS, next);
-      return next;
-    });
+    setPointsState(prev => { const n = Math.max(0, prev - amount); save(LS_POINTS, n); return n; });
   }, []);
 
+  
   const buyItem = useCallback((itemId) => {
-    setBoughtItems(prev => {
-      const next = { ...prev, [itemId]: true };
-      save(LS_ITEMS, next);
-      return next;
-    });
+    const ts = Date.now();
+    setBoughtItems(prev => { const n = { ...prev, [itemId]: true }; save(LS_ITEMS, n); return n; });
+    save(LS_LAST_BUY, ts);
+    setLastBuyTs(ts);
   }, []);
-
   const hasBought = useCallback((itemId) => !!boughtItems[itemId], [boughtItems]);
 
+  
+  
+  const hasShopChest = shopBau?.date === todayStr();
+  
+  const lastShopPrize = shopBau?.prize ?? null;
+
   const claimShopChest = useCallback(() => {
-    setBoughtItems(prev => {
-      const next = { ...prev, "shop_bau": true };
-      save(LS_ITEMS, next);
-      return next;
-    });
+    
+    const prize = SHOP_BAU_PRIZES[Math.floor(Math.random() * SHOP_BAU_PRIZES.length)];
+    const entry = { date: todayStr(), prize };
+    save(LS_SHOP_BAU, entry);
+    setShopBau(entry);
+    
+    setBoughtItems(prev => { const n = { ...prev, [prize]: true }; save(LS_ITEMS, n); return n; });
+    return prize; 
   }, []);
 
-  const hasShopChest = !!boughtItems["shop_bau"];
-
-  const claimAvatarChest = useCallback((chestId) => {
-    setClaimedChests(prev => {
-      const next = { ...prev, [chestId]: true };
-      save(LS_CHESTS, next);
-      return next;
-    });
-  }, []);
-
-  const hasAvatarChest = useCallback((chestId) => !!claimedChests[chestId], [claimedChests]);
-
-  const claimGoal = useCallback((goalId, amount) => {
-    setClaimedGoals(prev => {
-      const next = { ...prev, [goalId]: true };
-      save(LS_GOALS, next);
-      return next;
-    });
-    addPoints(amount);
+  
+  const hasAvatarChest = useCallback((chestId) => claimedChests[chestId] === todayStr(), [claimedChests]);
+  const claimAvatarChest = useCallback((chestId, basePoints, lyriumBonus = 1) => {
+    setClaimedChests(prev => { const n = { ...prev, [chestId]: todayStr() }; save(LS_CHESTS, n); return n; });
+    const total = Math.round(basePoints * lyriumBonus);
+    addPoints(total);
+    return total;
   }, [addPoints]);
 
-  const hasGoal = useCallback((goalId) => !!claimedGoals[goalId], [claimedGoals]);
+  
+  const claimGoal = useCallback((goalId, amount) => {
+    setClaimedGoals(prev => { const n = { ...prev, [goalId]: todayStr() }; save(LS_GOALS, n); return n; });
+    addPoints(amount);
+  }, [addPoints]);
+  const hasGoal = useCallback((goalId) => claimedGoals[goalId] === todayStr(), [claimedGoals]);
+
+  
+  const incrementStreak = useCallback(() => {
+    setStreakState(prev => { const n = prev + 1; save(LS_STREAK, n); return n; });
+  }, []);
+  const resetStreak = useCallback(() => { save(LS_STREAK, 0); setStreakState(0); }, []);
 
   return (
     <LyriumContext.Provider value={{
-      points,
-      addPoints,
-      spendPoints,
-      buyItem,
-      hasBought,
-      claimShopChest,
-      hasShopChest,
-      BAU_PRIZE,
-      BAU_PRICE,
-      claimAvatarChest,
-      hasAvatarChest,
-      claimGoal,
-      hasGoal,
+      points, addPoints, spendPoints,
+      buyItem, hasBought, lastBuyTs,
+      
+      claimShopChest, hasShopChest, lastShopPrize, BAU_PRICE,
+      
+      claimAvatarChest, hasAvatarChest, CHESTS_CONFIG,
+      
+      claimGoal, hasGoal,
+      
+      streak, incrementStreak, resetStreak,
     }}>
       {children}
     </LyriumContext.Provider>

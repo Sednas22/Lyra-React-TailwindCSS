@@ -6,7 +6,7 @@ const overlayStyle = {
 };
 
 const sheetStyle = {
-  background: "var(--bg-card, #1a1f2e)",
+  background: "var(--bg-card, #fff)",
   borderRadius: "1.2rem 1.2rem 0 0",
   padding: "1.5rem",
   width: "100%",

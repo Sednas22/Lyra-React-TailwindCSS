@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useApp } from "../context/AppContext";
 import "../styles/passos.css";
 import styles from "../styles/index.module.css"
 import Sidebar from "../components/Sidebar";
@@ -28,6 +29,8 @@ const svg = {
 }
 
 function Passos() {
+  const { userName } = useApp();
+  const displayName = userName || "Você";
   return (
     <div className="app">
       <Sidebar />
@@ -36,7 +39,7 @@ function Passos() {
                   
                           <div className={styles.headerActions}>
                             <div className={styles.desktopUserPill}>
-                              <span>Nome</span>
+                              <span>{displayName}</span>
                               {svg.relogio}
                             </div>
                   

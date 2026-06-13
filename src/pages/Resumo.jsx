@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useApp } from "../context/AppContext";
 import { useLyrium } from "../context/LyriumContext";
 import styles from "../styles/index.module.css";
 import Sidebar from "../components/Sidebar";
@@ -36,6 +37,8 @@ const svg = {
 }
 
 function Resumo() {
+  const { userName } = useApp();
+  const displayName = userName || "Você";
   const { points } = useLyrium();
   return (
     <div className={styles.app}>
@@ -58,7 +61,7 @@ function Resumo() {
             
                     <div className={styles.headerActions}>
                       <div className={styles.desktopUserPill}>
-                        <span>Nome</span>
+                        <span>{displayName}</span>
                         {svg.relogio}
                       </div>
             
@@ -67,7 +70,7 @@ function Resumo() {
                   </header>
             
                   <div className={styles.nameBar}>
-                    <span>Nome</span>
+                    <span>{displayName}</span>
                     {svg.relogio}
                   </div>
 

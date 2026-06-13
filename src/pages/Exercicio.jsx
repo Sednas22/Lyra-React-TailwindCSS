@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useApp } from "../context/AppContext";
 import "../styles/exercicio.css";
 import styles from "../styles/index.module.css";
 import Sidebar from "../components/Sidebar";
@@ -37,6 +38,8 @@ const svg = {
 }
 
 function Exercicio() {
+  const { userName } = useApp();
+  const displayName = userName || "Você";
   return (
     <div className="app">
       <Sidebar />
@@ -45,7 +48,7 @@ function Exercicio() {
             
                     <div className={styles.headerActions}>
                       <div className={styles.desktopUserPill}>
-                        <span>Nome</span>
+                        <span>{displayName}</span>
                         {svg.relogio}
                       </div>
             

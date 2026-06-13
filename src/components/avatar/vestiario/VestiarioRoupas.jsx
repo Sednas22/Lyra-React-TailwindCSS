@@ -1,307 +1,205 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import avatarImg from "../../../assets/buddy.png";
-import camisaImg from "../../../assets/camisa.png";
-import regataImg from "../../../assets/regata.png";
-import shortsImg from "../../../assets/shorts.png";
-import tenisImg from "../../../assets/tenis.png";
-import garrafaImg from "../../../assets/garrafa.png";
-import testeiraImg from "../../../assets/Faixa-roxa.png";
-import pocheteImg from "../../../assets/pochete.png";
-import boneImg from "../../../assets/bone.png";
+import { useMemo } from "react";
+import { useOutfit, SKINS_COMPOSTAS, SKINS_PERSONAGEM } from "../../../context/OutfitContext";
+import { useLyrium } from "../../../context/LyriumContext";
+import { getBuddyImg } from "../../../utils/buddyImages";
 import s from "../../../styles/vestiario-sub.module.css";
+import { Link } from "react-router-dom";
 
-const IconBack = (
-  <svg
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2.5"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    width="18"
-    height="18"
-  >
-    <line x1="19" y1="12" x2="5" y2="12" />
-    <polyline points="12 19 5 12 12 5" />
-  </svg>
+const skinImgs = import.meta.glob(
+  "../../../assets/personalizacao/*.png",
+  { eager:true }
 );
+function getSkinImg(skinId) {
+  const key = `../../../assets/personalizacao/buddy_${skinId}.png`;
+  return skinImgs[key]?.default ?? null;
+}
 
-const IconCheck = (
-  <svg
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="3"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    width="11"
-    height="11"
-  >
-    <path d="M5 12l4 4 10-10" />
-  </svg>
+const pecaImgs = import.meta.glob(
+  "../../../assets/*.png",
+  { eager:true }
 );
+function getPecaImg(filename) {
+  const key = `../../../assets/${filename}`;
+  return pecaImgs[key]?.default ?? null;
+}
 
-const IconLock = (
-  <svg
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2.5"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    width="11"
-    height="11"
-    aria-hidden="true"
-  >
-    <rect x="3" y="11" width="18" height="11" rx="2" />
-    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-  </svg>
-);
-
-const IconShirt = (
-  <svg
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2.5"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    width="14"
-    height="14"
-  >
-    <path d="M8 4l1.8 2h4.4L16 4l3 2.2-1.5 4.3-1.5-.7V20H8V9.8l-1.5.7L5 6.2 8 4z" />
-  </svg>
-);
-
-const ROUPAS = [
-  {
-    id: "regata",
-    name: "Regata",
-    img: regataImg,
-    status: "equipped",
-    price: null,
-  },
-  {
-    id: "camisa",
-    name: "Camisa",
-    img: camisaImg,
-    status: "owned",
-    price: null,
-  },
-  {
-    id: "shorts",
-    name: "Shorts",
-    img: shortsImg,
-    status: "locked",
-    price: "50",
-  },
-  { id: "tenis", name: "Tênis", img: tenisImg, status: "locked", price: "80" },
-];
-
-const ACESSORIOS = [
-  {
-    id: "garrafa",
-    name: "Garrafa",
-    img: garrafaImg,
-    status: "equipped",
-    price: null,
-  },
-  {
-    id: "testeira",
-    name: "Testeira",
-    img: testeiraImg,
-    status: "owned",
-    price: null,
-  },
-  {
-    id: "pochete",
-    name: "Pochete",
-    img: pocheteImg,
-    status: "locked",
-    price: "60",
-  },
-  { id: "bone", name: "Boné", img: boneImg, status: "locked", price: "40" },
-];
+const IconBack  = (<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" width="18" height="18"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>);
+const IconCheck = (<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" width="11" height="11"><path d="M5 12l4 4 10-10"/></svg>);
+const IconLock  = (<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" width="11" height="11"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>);
 
 const WARDROBE_NAV = [
-  { id: "roupas", label: "Vestuário" },
-  { id: "acessorios", label: "Acessórios" },
-  { id: "personalidades", label: "Personalidades" },
-  { id: "tags", label: "Tags" },
+  { id:"roupas",         label:"Vestuário"      },
+  { id:"personalidades", label:"Personalidades" },
+  { id:"tags",           label:"Tags"           },
 ];
 
-function ItemCard({ item, equipped, onEquip }) {
-  const isEquipped = item.id === equipped;
-
+function ProgressDots({ pecas, hasBought }) {
   return (
-    <article
-      className={[
-        s.itemCard,
-        isEquipped ? s.itemEquipped : "",
-        item.status === "locked" ? s.itemLocked : "",
-      ]
-        .filter(Boolean)
-        .join(" ")}
-      onClick={() => item.status !== "locked" && onEquip(item.id)}
-      role="button"
-      tabIndex={item.status === "locked" ? -1 : 0}
-      aria-label={
-        isEquipped
-          ? `${item.name} — equipada`
-          : item.status === "locked"
-          ? `${item.name} — bloqueada, ${item.price} pontos`
-          : `Equipar ${item.name}`
-      }
-    >
-      <div className={s.itemImg}>
-        <img src={item.img} alt={item.name} />
-      </div>
-
-      <div className={s.itemFooter}>
-        <span className={s.itemName}>{item.name}</span>
-        <span
-          className={[
-            s.itemPrice,
-            item.status !== "locked" ? s.itemPriceOwned : "",
-          ]
-            .filter(Boolean)
-            .join(" ")}
-        >
-          {isEquipped
-            ? "Equipada"
-            : item.status === "owned"
-            ? "Obtida"
-            : `${item.price} ◎`}
-        </span>
-      </div>
-
-      {isEquipped && (
-        <span className={s.checkBadge} aria-hidden="true">
-          {IconCheck}
-        </span>
-      )}
-      {item.status === "locked" && !isEquipped && (
-        <span className={s.lockBadge} aria-hidden="true">
-          {IconLock}
-        </span>
-      )}
-    </article>
+    <div style={{
+      position:"absolute", bottom:5, left:5,
+      display:"flex", flexWrap:"wrap", gap:3,
+      maxWidth:"calc(100% - 10px)",
+    }}>
+      {pecas.map(p => {
+        const got = hasBought(p.id);
+        const img = getPecaImg(p.img);
+        return (
+          <div key={p.id} title={p.nome} style={{
+            width:18, height:18, borderRadius:"50%",
+            border: got ? "1.5px solid #22c55e" : "1.5px solid #9ca3af",
+            background: got ? "rgba(34,197,94,.25)" : "rgba(156,163,175,.2)",
+            display:"flex", alignItems:"center", justifyContent:"center",
+            overflow:"hidden",
+          }}>
+            {img
+              ? <img src={img} alt={p.nome} style={{ width:13, height:13, objectFit:"contain", opacity: got ? 1 : 0.4 }} />
+              : <span style={{ fontSize:".45rem", color: got ? "#22c55e" : "#9ca3af" }}>{p.nome[0]}</span>
+            }
+          </div>
+        );
+      })}
+    </div>
   );
 }
 
 export default function VestiarioRoupas({ onBack, onNavigate }) {
-  const [equippedRoupa, setEquippedRoupa] = useState("regata");
-  const [equippedAcessorio, setEquippedAcessorio] = useState("garrafa");
+  const { outfit, equipSkin, unequipSkin, buddyImageName, isSkinCompostaUnlocked } = useOutfit();
+  const { hasBought } = useLyrium();
+
+  function handleEquip(skinId) {
+    if (outfit.skin === skinId) unequipSkin();
+    else equipSkin(skinId);
+  }
+
+  const compostas = useMemo(() =>
+    Object.entries(SKINS_COMPOSTAS).map(([id, data]) => ({
+      id,
+      ...data,
+      unlocked: isSkinCompostaUnlocked(id, hasBought),
+      equipped: outfit.skin === id,
+    })),
+  [hasBought, outfit.skin, isSkinCompostaUnlocked]);
+
+  const personagem = useMemo(() =>
+    SKINS_PERSONAGEM.map(sk => ({
+      ...sk,
+      owned:    hasBought(sk.itemId),
+      equipped: outfit.skin === sk.id,
+    })),
+  [hasBought, outfit.skin]);
 
   return (
     <>
       <header className={s.subHeader}>
         <div className={s.headerLeft}>
-          <button
-            type="button"
-            className={s.btnBack}
-            onClick={onBack}
-            aria-label="Voltar para o vestiário"
-          >
-            {IconBack}
-          </button>
+          <button type="button" className={s.btnBack} onClick={onBack}>{IconBack}</button>
           <h1>Vestuário</h1>
         </div>
       </header>
 
       <div className={s.wardrobeDesktopGrid}>
-        <aside
-          className={s.wardrobeAvatarCol}
-          aria-label="Avatar com roupa equipada"
-        >
-          <h2>Seu Avatar</h2>
-
+        <aside className={s.wardrobeAvatarCol}>
+          <h2>Seu Buddy</h2>
           <div className={s.avatarPreviewWrap}>
-            <img src={avatarImg} alt="Avatar" />
+            <img src={getBuddyImg(buddyImageName)} alt="Avatar" />
           </div>
           <div className={s.avatarShadowSm} />
-
           <div className={s.equippedBadge}>
-            {IconShirt}
-            {ROUPAS.find((i) => i.id === equippedRoupa)?.name ?? "Regata"}{" "}
-            equipada
+            {outfit.skin ? `Skin: ${outfit.skin}` : "Buddy padrão"}
           </div>
-
-          <nav
-            className={s.wardrobeSubNav}
-            aria-label="Categorias do vestiário"
-          >
-            {WARDROBE_NAV.map((item) => (
-              <button
-                key={item.id}
-                type="button"
-                className={[
-                  s.wardrobeSubLink,
-                  item.id === "roupas" ? s.wardrobeSubLinkActive : "",
-                ]
-                  .filter(Boolean)
-                  .join(" ")}
-                onClick={() =>
-                  item.id !== "roupas" && onNavigate && onNavigate(item.id)
-                }
-              >
-                {item.label}
-              </button>
+          <nav className={s.wardrobeSubNav}>
+            {WARDROBE_NAV.map(item => (
+              <button key={item.id} type="button"
+                className={[s.wardrobeSubLink, item.id==="roupas" ? s.wardrobeSubLinkActive : ""].filter(Boolean).join(" ")}
+                onClick={() => item.id !== "roupas" && onNavigate?.(item.id)}
+              >{item.label}</button>
             ))}
           </nav>
         </aside>
 
         <div className={s.wardrobeItemsCol}>
-          <div className={s.wardrobeHero}>
-            <div className={s.avatarPreviewWrap}>
-              <img src={avatarImg} alt="Avatar" />
-            </div>
-            <div className={s.avatarShadowSm} />
-            <div className={s.equippedBadge}>
-              {IconShirt}
-              {ROUPAS.find((i) => i.id === equippedRoupa)?.name ??
-                "Regata"}{" "}
-              equipada
-            </div>
-          </div>
 
           <div className={s.subSection}>
-            <p className={s.subSectionTitle}>👕 Roupas</p>
+            <p className={s.subSectionTitle}>🧢 Skins de Roupa</p>
+            <p style={{ fontSize:".78rem", color:"#8a9bb5", marginBottom:".75rem" }}>
+              Desbloqueie comprando todas as peças na loja de Roupas & Skins.
+            </p>
             <div className={s.itemsGrid}>
-              {ROUPAS.map((item) => (
-                <ItemCard
-                  key={item.id}
-                  item={item}
-                  equipped={equippedRoupa}
-                  onEquip={setEquippedRoupa}
-                />
-              ))}
+              {compostas.map(skin => {
+                const preview = getSkinImg(skin.id);
+                return (
+                  <article key={skin.id}
+                    className={[
+                      s.itemCard,
+                      skin.equipped ? s.itemEquipped : "",
+                      !skin.unlocked ? s.itemLocked : "",
+                    ].filter(Boolean).join(" ")}
+                    onClick={() => skin.unlocked && handleEquip(skin.id)}
+                    role="button"
+                    tabIndex={skin.unlocked ? 0 : -1}
+                    style={{ cursor: skin.unlocked ? "pointer" : "default" }}
+                  >
+                    <div className={s.itemImg} style={{ position:"relative" }}>
+                      {preview
+                        ? <img src={preview} alt={skin.nome} />
+                        : <span style={{ fontSize:"2rem" }}>🧢</span>
+                      }
+                      <ProgressDots pecas={skin.pecas} hasBought={hasBought} />
+                    </div>
+
+                    <div className={s.itemFooter}>
+                      <span className={s.itemName}>{skin.nome}</span>
+                    </div>
+                    <div className={s.itemFooter}>
+                      <span className={[s.itemPrice, skin.unlocked ? s.itemPriceOwned : ""].filter(Boolean).join(" ")}>
+                        {skin.equipped ? "Equipada" : skin.unlocked ? "Obtida" : <Link to="/loja">Colete peças →</Link>}
+                      </span>
+                    </div>
+
+                    {skin.equipped && <span className={s.checkBadge}>{IconCheck}</span>}
+                    {!skin.unlocked && <span className={s.lockBadge}>{IconLock}</span>}
+                  </article>
+                );
+              })}
             </div>
           </div>
 
-          <div className={s.subSection}>
-            <p className={s.subSectionTitle}>💧 Acessórios</p>
+          <div className={s.subSection} style={{ marginTop:"1.5rem" }}>
+            <p className={s.subSectionTitle}>🎭 Skins de Personagem</p>
+            <p style={{ fontSize:".78rem", color:"#8a9bb5", marginBottom:".75rem" }}>
+              Compradas na loja ou obtidas pelo Baú Surpresa.
+            </p>
             <div className={s.itemsGrid}>
-              {ACESSORIOS.map((item) => (
-                <ItemCard
-                  key={item.id}
-                  item={item}
-                  equipped={equippedAcessorio}
-                  onEquip={setEquippedAcessorio}
-                />
-              ))}
+              {personagem.map(skin => {
+                const img = getSkinImg(skin.id);
+                return (
+                  <article key={skin.id}
+                    className={[s.itemCard, skin.equipped ? s.itemEquipped : "", !skin.owned ? s.itemLocked : ""].filter(Boolean).join(" ")}
+                    onClick={() => skin.owned && handleEquip(skin.id)}
+                    role="button" tabIndex={skin.owned ? 0 : -1}
+                  >
+                    <div className={s.itemImg}>
+                      {img
+                        ? <img src={img} alt={skin.nome} />
+                        : <span style={{ fontSize:"2rem" }}>🎭</span>
+                      }
+                    </div>
+                    <div className={s.itemFooter}>
+                      <span className={s.itemName}>{skin.nome}</span>
+                    </div>
+                    <div className={s.itemFooter}>
+                      <span className={[s.itemPrice, skin.owned ? s.itemPriceOwned : ""].filter(Boolean).join(" ")}>
+                        {skin.equipped ? "Equipada" : skin.owned ? "Obtida" : <Link to="/loja/roupas">Loja →</Link>}
+                      </span>
+                    </div>
+                    {skin.equipped && <span className={s.checkBadge}>{IconCheck}</span>}
+                    {!skin.owned   && <span className={s.lockBadge}>{IconLock}</span>}
+                  </article>
+                );
+              })}
             </div>
           </div>
 
-          <div className={s.subSection}>
-            <Link
-              to="/loja/roupas"
-              className={`${s.btnEquip} ${s.btnEquipFull}`}
-            >
-              Ver todas as roupas na Loja →
-            </Link>
-          </div>
         </div>
       </div>
     </>

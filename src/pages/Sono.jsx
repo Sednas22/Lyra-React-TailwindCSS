@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useApp } from "../context/AppContext";
 import styles from "../styles/index.module.css"
 import "../styles/sono.css";
 import Sidebar from "../components/Sidebar";
@@ -28,6 +29,8 @@ const svg = {
 }
 
 function Sono() {
+  const { userName } = useApp();
+  const displayName = userName || "Você";
   return (
     
     <div className="app">
@@ -37,7 +40,7 @@ function Sono() {
             
                     <div className={styles.headerActions}>
                       <div className={styles.desktopUserPill}>
-                        <span>Nome</span>
+                        <span>{displayName}</span>
                         {svg.relogio}
                       </div>
             
