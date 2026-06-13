@@ -812,6 +812,10 @@ a {
     .modalSheet {
     margin-bottom: 40px
     }
+
+    .escritaBau {
+        display: none;
+    }
 }
 
 

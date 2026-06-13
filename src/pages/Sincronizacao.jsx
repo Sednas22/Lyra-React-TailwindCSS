@@ -57,11 +57,11 @@ function Sincronizacao() {
                   padding: ".75rem 1rem",
                   borderRadius: "1rem",
                   border: selected === app.id
-                    ? "2px solid #22c55e"
+                    ? "2px solid #2db56e"
                     : "1.5px solid var(--border, #2d3548)",
                   background: selected === app.id
                     ? "rgba(34,197,94,.08)"
-                    : "var(--bg-surface, #1a1f2e)",
+                    : "var(--bg-surface, #000)",
                   cursor: "pointer",
                   transition: "all .2s",
                 }}
@@ -70,14 +70,14 @@ function Sincronizacao() {
                 <img src={app.img} alt={app.label} className="app-logo" style={{ width: 40, height: 40, objectFit: "contain" }} />
                 <span style={{ fontWeight: 600, flex: 1 }}>{app.label}</span>
                 {selected === app.id && (
-                  <span style={{ color: "#22c55e", fontWeight: 700, fontSize: "1.1rem" }}>✓</span>
+                  <span style={{ color: "#2db56e", fontWeight: 700, fontSize: "1.1rem" }}>✓</span>
                 )}
               </li>
             ))}
           </ul>
 
           {loading && (
-            <p style={{ textAlign: "center", color: "#22c55e", fontWeight: 600, marginBottom: ".75rem" }}>
+            <p style={{ textAlign: "center", color: "#2db56e", fontWeight: 600, marginBottom: ".75rem" }}>
               Sincronizando dados...⏳
             </p>
           )}

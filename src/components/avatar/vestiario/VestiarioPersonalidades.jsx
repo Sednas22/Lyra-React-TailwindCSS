@@ -36,8 +36,8 @@ const PERSONALIDADES = [
   },
   {
     id:     "militar",
-    name:   "Militar",
-    emoji:  "🪖",
+    name:   "General",
+    emoji:  "🎖",
     desc:   "Disciplina total. Missão cumprida, soldado!",
     fala:   "Atenção! Missão do dia iniciada!",
     itemId: "pers_militar",
@@ -97,10 +97,10 @@ export default function VestiarioPersonalidades({ onBack, onNavigate }) {
           <div className={s.equippedBadge}>
             {equippedPersona.emoji} {equippedPersona.name} equipada
           </div>
-          <p style={{ fontSize:".75rem", color:"var(--text-muted,#8a9bb5)", textAlign:"center", marginTop:".3rem", fontStyle:"italic", padding:"0 .5rem" }}>
+          <p style={{ fontSize:".75rem", color:" #2db56e", textAlign:"center", marginTop:".3rem", fontStyle:"italic", padding:"0 .5rem" }}>
             "{equippedPersona.fala}"
           </p>
-          <p style={{ fontSize:".72rem", color:"var(--text-muted,#8a9bb5)", textAlign:"center", marginTop:".5rem" }}>
+          <p style={{ fontSize:".72rem", color:"var(--text-muted, #8a9bb5)", textAlign:"center", marginTop:".5rem" }}>
             ℹ️ A personalidade só altera as falas do buddy, não a aparência.
           </p>
 
@@ -116,8 +116,8 @@ export default function VestiarioPersonalidades({ onBack, onNavigate }) {
 
         <div className={s.wardrobeItemsCol}>
           <div className={s.subSection}>
-            <p className={s.subSectionTitle}>💬 Personalidades</p>
-            <p style={{ fontSize:".78rem", color:"var(--text-muted,#8a9bb5)", marginBottom:".75rem" }}>
+            <p className={s.subSectionTitle} style={{color:"#2db56e"}}>💬 Personalidades</p>
+            <p style={{ fontSize:".78rem", color:"var(--text-muted, #8a9bb5)", marginBottom:".75rem" }}>
               Escolha como o buddy vai se comunicar com você. Só uma por vez.
             </p>
 
@@ -132,10 +132,10 @@ export default function VestiarioPersonalidades({ onBack, onNavigate }) {
                     borderRadius:".9rem",
                     border: equipped
                       ? `2px solid ${persona.color}`
-                      : "1.5px solid var(--border,#2d3548)",
+                      : "1.5px solid var(--border, #000)",
                     background: equipped
                       ? `${persona.color}14`
-                      : "var(--bg-surface,#1a1f2e)",
+                      : "var(--bg-surface, #fff)",
                     opacity: owned ? 1 : 0.55,
                     cursor: owned ? "pointer" : "default",
                     transition:"all .2s",
@@ -147,8 +147,8 @@ export default function VestiarioPersonalidades({ onBack, onNavigate }) {
                     <span style={{ fontSize:"1.8rem", minWidth:"2.2rem", textAlign:"center" }}>{persona.emoji}</span>
                     <div style={{ flex:1, minWidth:0 }}>
                       <p style={{ fontWeight:700, fontSize:".95rem", marginBottom:".2rem" }}>{persona.name}</p>
-                      <p style={{ fontSize:".78rem", color:"var(--text-muted,#8a9bb5)", marginBottom:".25rem" }}>{persona.desc}</p>
-                      <p style={{ fontSize:".73rem", color:"var(--text-muted,#8a9bb5)", fontStyle:"italic" }}>
+                      <p style={{ fontSize:".78rem", color:"var(--text-muted, #8a9bb5)", marginBottom:".25rem" }}>{persona.desc}</p>
+                      <p style={{ fontSize:".73rem", color:"var(--text-muted, #8a9bb5)", fontStyle:"italic" }}>
                         "{persona.fala}"
                       </p>
                     </div>

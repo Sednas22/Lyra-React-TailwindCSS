@@ -82,11 +82,11 @@ function ObjetivosTab() {
         </div>
       )}
 
-      <section className="profile-progress-section">
+      <section className="profile-progress-section" style={{marginBottom:"25px"}}>
         <article className="profile-progress-card">
           <h3>{userName || "Você"}</h3>
           {!healthData && (
-            <p style={{ fontSize:".82rem", color:"var(--text-muted,#8a9bb5)", marginBottom:".5rem" }}>
+            <p style={{ fontSize:".82rem", color:"#fff", marginBottom:".5rem" }}>
               ⚠️ Sincronize um app de saúde para ver seus dados reais.
             </p>
           )}
@@ -96,9 +96,6 @@ function ObjetivosTab() {
             </div>
             <span className="goal-side-icon">{IconTarget}</span>
           </div>
-          <p style={{ fontSize:".8rem", color:"var(--text-muted,#8a9bb5)", marginTop:".3rem" }}>
-            {progressoGeral}% das metas de hoje • {streak} dias de streak 🔥
-          </p>
         </article>
       </section>
 
@@ -123,44 +120,50 @@ function ObjetivosTab() {
 
               return (
                 <li key={goal.id} className="goal-item">
-                  <article className="goal-row" style={{ flexDirection:"column", gap:".5rem" }}>
-                    <div style={{ display:"flex", alignItems:"center", gap:".75rem" }}>
-                      <span style={{ fontSize:"1.3rem" }}>{goal.emoji}</span>
-                      <div style={{ flex:1 }}>
-                        <div style={{ display:"flex", justifyContent:"space-between", marginBottom:".3rem" }}>
-                          <span style={{ fontWeight:600, fontSize:".9rem" }}>{goal.label}</span>
-                          <span style={{ fontSize:".78rem", color: prog.cumprida ? "#22c55e" : "var(--text-muted,#8a9bb5)" }}>
-                            {healthData
-                              ? `${prog.valor} / ${prog.meta} ${prog.unidade}`
-                              : "-- / --"
-                            }
-                          </span>
-                        </div>
-                        <ProgressBar pct={prog.pct} cumprida={prog.cumprida} />
+                  <article className="goal-card">
+
+                    <div className="goal-header">
+                      <span className="goal-emoji">{goal.emoji}</span>
+
+                      <div className="goal-info">
+                        <h4>{goal.label}</h4>
+                        <small>{goal.desc}</small>
                       </div>
-                      <span style={{ minWidth:"2.5rem", textAlign:"right", fontSize:".8rem", fontWeight:700, color: prog.cumprida ? "#22c55e" : "var(--text-muted,#8a9bb5)" }}>
+
+                      <div className="goal-percent">
                         {prog.pct}%
-                      </span>
+                      </div>
                     </div>
+
+                    <div className="goal-values">
+                      {healthData
+                        ? `${prog.valor} / ${prog.meta} ${prog.unidade}`
+                        : "-- / --"
+                      }
+                    </div>
+
+                    <ProgressBar
+                      pct={prog.pct}
+                      cumprida={prog.cumprida}
+                    />
 
                     {podeResgatar && (
                       <button
-                        onClick={() => handleClaimGoal(goal.id, goal.lyrium)}
-                        style={{
-                          width:"100%", padding:".5rem", background:"#22c55e",
-                          border:"none", borderRadius:".6rem", color:"#fff",
-                          fontWeight:700, fontSize:".85rem", cursor:"pointer",
-                          marginTop:".2rem",
-                        }}
+                        className="goal-claim-btn"
+                        onClick={() =>
+                          handleClaimGoal(goal.id, goal.lyrium)
+                        }
                       >
-                        🎉 Meta cumprida! Resgatar +{goal.lyrium} ◎
+                        Resgatar +{goal.lyrium} ◎
                       </button>
                     )}
+
                     {claimed && (
-                      <p style={{ fontSize:".78rem", color:"#22c55e", textAlign:"center" }}>
+                      <div className="goal-claimed">
                         ✓ Lyrium resgatado hoje
-                      </p>
+                      </div>
                     )}
+
                   </article>
                 </li>
               );
@@ -180,8 +183,7 @@ function ObjetivosTab() {
         <div className="modalOverlay" onClick={() => setModal(false)}>
           <div className="modalSheet" onClick={e => e.stopPropagation()} style={{ maxHeight:"80vh", overflowY:"auto" }}>
             <div className="modalHeader">
-              <h2>Alterar Metas</h2>
-              <button className="modalClose" onClick={() => setModal(false)}>✕</button>
+              <h2>Alterar Metas <button className="modalClose" style={{width:"auto"}} onClick={() => setModal(false)}>✕</button></h2>
             </div>
 
             <p style={{ fontSize:".82rem", color:"var(--text-muted,#8a9bb5)", marginBottom:"1rem" }}>
@@ -193,9 +195,9 @@ function ObjetivosTab() {
               return (
                 <div key={id} style={{
                   padding:".75rem", marginBottom:".6rem",
-                  border: pref.active ? "1.5px solid #22c55e" : "1.5px solid var(--border,#2d3548)",
+                  border: pref.active ? "1.5px solid #2db56e" : "1.5px solid var(--border, #2db56e)",
                   borderRadius:".75rem",
-                  background: pref.active ? "rgba(34,197,94,.06)" : "var(--bg-surface,#1a1f2e)",
+                  background: pref.active ? "#fff" : "var(--bg-surface, #fff)",
                 }}>
                   <div style={{ display:"flex", alignItems:"center", gap:".75rem", marginBottom: pref.active ? ".6rem" : 0 }}>
                     <span style={{ fontSize:"1.2rem" }}>{meta.emoji}</span>
@@ -205,8 +207,8 @@ function ObjetivosTab() {
                       style={{
                         padding:".3rem .8rem", borderRadius:"2rem",
                         border:"none", fontWeight:700, fontSize:".8rem", cursor:"pointer",
-                        background: pref.active ? "#22c55e" : "var(--bg-card,#252b3b)",
-                        color: pref.active ? "#fff" : "var(--text-muted,#8a9bb5)",
+                        background: pref.active ? "#2db56e" : "var(--bg-card, #000)",
+                        color: pref.active ? "#fff" : "#2db56e",
                       }}
                     >
                       {pref.active ? "Ativo" : "Inativo"}
@@ -222,8 +224,8 @@ function ObjetivosTab() {
                           style={{
                             flex:1, padding:".35rem", borderRadius:".5rem",
                             border:"none", fontSize:".75rem", fontWeight:600, cursor:"pointer",
-                            background: pref.nivel === n ? "#3b82f6" : "var(--bg-card,#252b3b)",
-                            color: pref.nivel === n ? "#fff" : "var(--text-muted,#8a9bb5)",
+                            background: pref.nivel === n ? "#3b82f6" : "var(--bg-card, #fff)",
+                            color: pref.nivel === n ? "#fff" : "#000",
                           }}
                         >
                           {NIVEL_LABEL[n]}

@@ -11,23 +11,19 @@ const IconFlame  = (<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 
 const IconCheck  = (<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12l4 4 10-10" /></svg>);
 
 function AvatarTab({ styles: s }) {
-  const { claimAvatarChest, hasAvatarChest, CHESTS_CONFIG, streak } = useLyrium();
+  const { claimAvatarChest, hasAvatarChest, CHESTS_CONFIG, trofeus } = useLyrium();
   const { outfit, buddyImageName, getLyriumBonus } = useOutfit();
   const { userName, healthData, goalPrefs, getGoalProgress } = useApp();
 
   const [modal, setModal] = useState(null);
 
-  const trofeus = useMemo(() =>
-    CHESTS_CONFIG.filter(c => hasAvatarChest(c.id)).length,
-  [CHESTS_CONFIG, hasAvatarChest]);
-
   
   const fala = useMemo(() => {
     const situacao = getSituacaoAutomatica(
-      healthData, goalPrefs, getGoalProgress, null, streak
+      healthData, goalPrefs, getGoalProgress, null, 0
     );
-    return getBuddySpeech(situacao, outfit.personalidade, userName, streak);
-  }, [healthData, goalPrefs, getGoalProgress, outfit.personalidade, userName, streak]);
+    return getBuddySpeech(situacao, outfit.personalidade, userName, 0);
+  }, [healthData, goalPrefs, getGoalProgress, outfit.personalidade, userName]);
 
   const lyriumBonus = getLyriumBonus();
   const buddyImg    = getBuddyImg(buddyImageName);
@@ -77,13 +73,6 @@ function AvatarTab({ styles: s }) {
               <strong>{trofeus}</strong>
             </div>
           </article>
-          <article className={s.statusCard}>
-            <div className={`${s.statusCardHeading} ${s.headingRight}`}><h3>Streak</h3></div>
-            <div className={`${s.statusCardBody} ${s.cardLime}`}>
-              <span className={s.statusIcon}>{IconFlame}</span>
-              <strong>{streak} dias</strong>
-            </div>
-          </article>
         </div>
       </section>
 
@@ -119,7 +108,7 @@ function AvatarTab({ styles: s }) {
                 <span className={`${s.chestBadge} ${claimed ? s.success : s.sparkle}`}>
                   {claimed && IconCheck}
                 </span>
-                <p style={{ textAlign:"center", fontSize:".72rem", color:"var(--text-muted,#8a9bb5)", marginTop:".2rem" }}>
+                <p className={s.escritaBau} style={{ textAlign:"center", fontSize:".72rem", color:"var(--text-muted, #8a9bb5)", marginTop:".2rem" }}>
                   {claimed ? "Aberto ✓" : `+${pontosComBonus} ◎`}
                 </p>
               </article>
@@ -160,7 +149,7 @@ function AvatarTab({ styles: s }) {
         <div className={s.modalOverlay} role="dialog" aria-modal="true" onClick={() => setModal(null)}>
           <div className={s.modalSheet} onClick={e => e.stopPropagation()}>
             <div className={s.modalHeader}>
-              <h2>🎉 Baú aberto!</h2>
+              <h2>Baú aberto!</h2>
               <button className={s.modalClose} type="button" onClick={() => setModal(null)} aria-label="Fechar">✕</button>
             </div>
             <p style={{ marginBottom:"1rem" }}>

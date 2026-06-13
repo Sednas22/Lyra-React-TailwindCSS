@@ -45,6 +45,12 @@
   gap: 14px;
 }
 
+@media (max-width: 480px) {
+  .wardrobeGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .wardrobeCard {
   min-height: 98px;
   border-radius: 28px;
