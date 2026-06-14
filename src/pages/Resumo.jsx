@@ -82,7 +82,6 @@ function Resumo() {
           <section className={styles.section}>
             <div className={styles.sectionHeader}>
               <h2>Dashboard</h2>
-              <Link to="/resumo/dash" className={styles.linkArrow}>Ver detalhes →</Link>
             </div>
 
             <div className={styles.summaryCard}>
