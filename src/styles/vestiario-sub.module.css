@@ -449,6 +449,12 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 16px;
   }
+
+  .tagCard{
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+}
 }
 
 @media (min-width: 1100px) {
@@ -467,4 +473,10 @@
   .tagsGrid {
     grid-template-columns: 1fr;
   }
+}
+
+@media (min-width:768px) and (max-width:1023px){
+  .itemCard {
+  width: 120px;
+}
 }

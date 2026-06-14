@@ -84,7 +84,7 @@ function Home() {
           <section className="menu-grid-section">
             <nav className="menu-grid">
               <div className="menu-card"></div>
-              <Link to="/avatar" className="menu-card menu-card-active" aria-label="Avatar" />           
+              <Link to="/lgpd" className="menu-card menu-card-active" aria-label="Avatar" />           
               <div className="menu-card" />
               <div className="menu-card" />
               <div className="menu-card" />

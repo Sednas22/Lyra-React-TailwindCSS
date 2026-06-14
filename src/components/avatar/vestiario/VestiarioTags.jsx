@@ -85,7 +85,7 @@ export default function VestiarioTags({ onBack, onNavigate }) {
 
         <div className={s.wardrobeItemsCol}>
           <div className={s.subSection}>
-            <p className={s.subSectionTitle}>🏷️ Suas tags</p>
+            <p className={s.subSectionTitle} style={{color:"#2db56e"}}>🏷️ Suas tags</p>
             <p style={{ fontSize:".78rem", color:"var(--text-muted,#8a9bb5)", marginBottom:".75rem" }}>
               Tags equipadas aumentam o lyrium ganho nos baús. Só uma por vez.
             </p>

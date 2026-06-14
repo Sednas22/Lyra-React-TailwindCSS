@@ -120,7 +120,7 @@ export default function VestiarioRoupas({ onBack, onNavigate }) {
         <div className={s.wardrobeItemsCol}>
 
           <div className={s.subSection}>
-            <p className={s.subSectionTitle}>🧢 Skins de Roupa</p>
+            <p className={s.subSectionTitle} style={{color:"#2db56e"}}>🧢 Skins de Roupa</p>
             <p style={{ fontSize:".78rem", color:"#8a9bb5", marginBottom:".75rem" }}>
               Desbloqueie comprando todas as peças na loja de Roupas & Skins.
             </p>
@@ -165,7 +165,7 @@ export default function VestiarioRoupas({ onBack, onNavigate }) {
           </div>
 
           <div className={s.subSection} style={{ marginTop:"1.5rem" }}>
-            <p className={s.subSectionTitle}>🎭 Skins de Personagem</p>
+            <p className={s.subSectionTitle} style={{color:"#2db56e"}}>🎭 Skins de Personagem</p>
             <p style={{ fontSize:".78rem", color:"#8a9bb5", marginBottom:".75rem" }}>
               Compradas na loja ou obtidas pelo Baú Surpresa.
             </p>
