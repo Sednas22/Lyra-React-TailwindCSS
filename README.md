@@ -166,7 +166,35 @@ npm run dev
 <p>Acesse no navegador: <b>http://localhost:5173</b></p>
 
 <h3>Utilização:</h3>
--
+<p>
+Com o projeto rodando, acesse a aplicação pelo navegador e siga o fluxo de onboarding: aceite os termos de privacidade, informe seu nome e selecione o app de saúde. A partir daí, o sistema carrega o painel de saúde, o avatar e a loja.
+</p>
+<p>
+O que está disponível para explorar:
+</p>
+<ul>
+  <li>Acompanhamento de <b>Alimentação, Sono, Passos e Exercícios</b> no painel Resumo, com anéis de progresso e gráficos semanais;</li>
+  <li><b>Avatar (Buddy)</b> com baús diários para ganhar Lyrium, troféus acumulativos e fala dinâmica que reage ao seu progresso;</li>
+  <li><b>Metas diárias</b> configuráveis por categoria e nível de dificuldade, com resgate de Lyrium ao cumpri-las;</li>
+  <li><b>Vestiário</b> com skins de personagem (equipáveis assim que compradas) e skins compostas (desbloqueadas ao reunir todas as peças na loja);</li>
+  <li><b>Tags</b> que, quando equipadas, aplicam bônus de Lyrium nos baús abertos;</li>
+  <li><b>Personalidades</b> que alteram o jeito do Buddy se comunicar com você;</li>
+  <li><b>Baú Surpresa</b> na loja, com reset diário e item sorteado aleatoriamente entre os exclusivos.</li>
+</ul>
+
+<h4>Beneficiários cadastrados:</h4>
+<p>
+O sistema possui integração com uma API local (<code>src/data/beneficiarios.json</code>) que simula dados vindos da Care Plus. Ao informar um dos nomes abaixo no onboarding, os dados de saúde correspondentes são carregados automaticamente em todo o sistema:
+</p>
+<ul>
+  <li><b>Cainã</b> - 1850 kcal consumidas · 7,2h de sono (Boa) · 9.340 passos · 420 cal gastas;</li>
+  <li><b>André</b> - 2200 kcal consumidas · 6,0h de sono (Regular) · 12.500 passos · 610 cal gastas;</li>
+  <li><b>Yuri</b> - 1600 kcal consumidas · 8,5h de sono (Ótima) · 6.800 passos · 280 cal gastas;</li>
+  <li><b>Michel</b> - 2500 kcal consumidas · 5,5h de sono (Ruim) · 4.200 passos · 150 cal gastas.</li>
+</ul>
+<p>
+Qualquer outro nome mantém os dados em branco (<code>--</code>) no painel. Para adicionar um novo beneficiário, basta incluir uma nova entrada no <code>beneficiarios.json</code> seguindo a mesma estrutura dos existentes — nome, métricas do dia e histórico semanal. O sistema captura automaticamente ao iniciar com esse nome no onboarding, sem necessidade de alterar nenhum outro arquivo.
+</p>
 
 <h3>Implementações futuras:</h3>
 <p>Integração real com apps de saúde (Google Fit, Apple Health, Samsung Health) via OAuth, com possibilidade de trocar o app sincronizado; Migração da estilização para Tailwind CSS, trazendo modernidade ao projeto; Sistema de comunidade ou amigos com ranking entre usuários, mantendo a competição não punitiva; Sincronização com dados reais do Care Plus substituindo o JSON local, e permitindo que a validação de usuário seja feita apenas no primeiro acesso; Expansão do catálogo de skins compostas com novas combinações de peças e personalização do Buddy padrão com as peças de roupas adquiridas, sem skins pré-definidas.</p>
